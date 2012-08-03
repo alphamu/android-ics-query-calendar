@@ -10,29 +10,89 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/display"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/padding_medium"
-            android:text="@string/hello_world"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="30sp"
-            tools:context=".CheckCalendarActivity" />
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/padding_medium"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="30sp"
+                tools:context=".CheckCalendarActivity" />
+
+            <TextView
+                android:id="@+id/begin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/padding_medium"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="20sp"
+                tools:context=".CheckCalendarActivity" />
+
+            <TextView
+                android:id="@+id/end"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/padding_medium"
+                android:text="@string/hello_world"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="20sp"
+                tools:context=".CheckCalendarActivity" />
+
+            <TextView
+                android:id="@+id/organizer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/padding_medium"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="20sp"
+                tools:context=".CheckCalendarActivity" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/padding_medium"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="20sp"
+                tools:context=".CheckCalendarActivity" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/padding_medium"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                tools:context=".CheckCalendarActivity" />
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true" >
 
         <Button
             android:id="@+id/addCalendarEvent"
             android:layout_width="fill_parent"
-            android:text="Make Reservation"
-            android:layout_height="wrap_content" android:background="@drawable/white_button" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_button"
+            android:text="@string/make_reservation" >
         </Button>
     </LinearLayout>
 
