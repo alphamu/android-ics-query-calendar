@@ -48,18 +48,20 @@ public class CheckCalendarActivity extends Activity {
 		setContentView(R.layout.activity_check_calendar);
 		
 		Calendar beginTime = Calendar.getInstance();
-		//beginTime.set(beginTime.get(Calendar.YEAR), beginTime.get(Calendar.MONTH), beginTime.get(Calendar.DAY_OF_MONTH), 8, 0);
-		long startMillis = beginTime.getTimeInMillis();
+		long startMillis = beginTime.getTimeInMillis(); //current time in millis
+		
 		Calendar endTime = Calendar.getInstance();
-		//endTime.set(2012, 12, 12, 8, 0);
-		endTime.set(beginTime.get(Calendar.YEAR), beginTime.get(Calendar.MONTH), beginTime.get(Calendar.DAY_OF_MONTH), 19, 0);
-		long endMillis = endTime.getTimeInMillis();
+		endTime.add(Calendar.HOUR, 12);
+		long endMillis = endTime.getTimeInMillis(); //now + 12 hours. Fixing the end time to something
+													//like 7 o'clock is a bad idea because the app will
+													//blow when current time is after end time!
 
 		Cursor cur = null;
 		ContentResolver cr = getContentResolver();
 
 		// The ID of the recurring event whose instances you are searching
-		// for in the Instances table
+		// for in the Instances table. Or getch everything by asking for > 0,
+		// you can probably make these null as well.
 		String selection = Instances.EVENT_ID + " > ?";
 		String[] selectionArgs = new String[] {"0"};
 
