@@ -12,8 +12,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Instances;
-import android.util.Log;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class CheckCalendarActivity extends Activity {
@@ -75,9 +74,9 @@ public class CheckCalendarActivity extends Activity {
 		        INSTANCE_PROJECTION, selection,
 		        selectionArgs, "startDay ASC, startMinute ASC");
 		
-		StringBuilder events = new StringBuilder();
+		
 		TextView message = (TextView)findViewById(R.id.display);
-		int i = 0;
+		boolean nextFound = false;
 		while (cur.moveToNext()) {
 			// Get the field values
 			long eventId = cur.getLong(PROJECTION_ID_INDEX);
@@ -86,36 +85,34 @@ public class CheckCalendarActivity extends Activity {
 			String title = cur.getString(PROJECTION_TITLE_INDEX);
 			String description = cur.getString(PROJECTION_DESCRIPTION_INDEX);
 			String organizer = cur.getString(PROJECTION_ORGANIZER_INDEX);
+		
+			StringBuilder event = new StringBuilder();
+//			event.append(eventId).append(",");
+			event.append(title).append("\n");
+			event.append("Organizer: ").append(organizer).append(",\n");
+			event.append("Start: ").append(formatter.format(new Date(beginVal))).append("\n");
+			event.append("End:").append(formatter.format(new Date(endVal))).append("\n");
+			event.append(description).append("\n");
 			
-			events.append(eventId).append(",");
-			events.append(formatter.format(new Date(beginVal))).append(",");
-			events.append(formatter.format(new Date(endVal))).append(",");
-			events.append(title).append(",");
-			events.append(description).append(",");
-			events.append(organizer).append(",");
 			
-			// Do something with the values.
-			Log.i(DEBUG_TAG, "Event:  " + title);
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(beginVal);
+			// Do something with the values.			
+			long timeLeft = (beginVal) - System.currentTimeMillis();
 			
-			if(i == 0) {
-				LinearLayout ll = (LinearLayout)findViewById(R.id.background);
-				long timeLeft = (beginVal) - System.currentTimeMillis();
+			if(!nextFound && timeLeft > 0) {
+				RelativeLayout ll = (RelativeLayout)findViewById(R.id.background);
+
 				if(timeLeft < 1000 * 60) {
 					ll.setBackgroundResource(android.R.color.holo_red_light);
-					message.setText("EVENT STARTING NOW\n" + title + "\n End Time: "+new SimpleDateFormat("hh:mm a").format(new Date(endVal)));
+					message.setText("EVENT STARTING NOW\n" + title + "\nEnd Time: "+new SimpleDateFormat("hh:mm a").format(new Date(endVal)));
 				} else if (timeLeft < 1000 * 60 * 10) {
 					ll.setBackgroundResource(android.R.color.holo_orange_light);
-					message.setText("EVENT STARTING SOON\n" + title + "\n End Time: "+new SimpleDateFormat("hh:mm a").format(new Date(endVal)));
+					message.setText("EVENT STARTING SOON\n" + title + "\nEnd Time: "+new SimpleDateFormat("hh:mm a").format(new Date(endVal)));
 				} else {
 					ll.setBackgroundResource(android.R.color.holo_blue_light);
-					message.setText("FREE TILL\n" + title + "\n End Time: "+new SimpleDateFormat("hh:mm a").format(new Date(endVal)));
+					message.setText("FREE TILL\n" + title + "\nEnd Time: "+new SimpleDateFormat("hh:mm a").format(new Date(endVal)));
 				}
 			}
-			
-			Log.i(DEBUG_TAG, "Date: " + formatter.format(calendar.getTime()));
-			i++;
+			nextFound = true;
 		}
 	}
 }
